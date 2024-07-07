@@ -25,10 +25,10 @@ const router = createRouter({
     //   beforeEnter: [isAuthenticatedGuard],
     //   ...tasksRouter
     // },
-    // {
-    //   path: '/',
-    //   ...authRouter
-    // },
+    {
+      path: '/',
+      ...authRouter
+    },
     {
       path: '/tasks',
       ...tasksRouter
