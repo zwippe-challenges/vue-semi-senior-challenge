@@ -1,5 +1,5 @@
 export default {
-  name: 'tasks',
+  name: 'user',
   component: () => import('@/modules/auth/layouts/AuthLayout.vue'),
   children: [
     {

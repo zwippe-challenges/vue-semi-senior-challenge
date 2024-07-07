@@ -25,14 +25,13 @@ const router = createRouter({
     //   beforeEnter: [isAuthenticatedGuard],
     //   ...tasksRouter
     // },
-    {
-      path: '/',
-      ...authRouter
-    },
+    // {
+    //   path: '/',
+    //   ...authRouter
+    // },
     {
       path: '/tasks',
-      name: 'tasks',
-      component: () => import( '@/modules/tasks/layouts/TasksLayout.vue'),
+      ...tasksRouter
     }
   ]
 })
