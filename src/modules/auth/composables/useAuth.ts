@@ -5,13 +5,13 @@ const useAuth = () => {
   const store = useStore()
 
   const createUser = async( user ) => {
-    const {resp} = await store.dispatch('auth/createUser', user)
-    console.log(resp);
+    const resp = await store.dispatch('auth/createUser', user)
+    return resp
   }
 
   const loginUser = async(user) => {
-    const { resp } = await store.dispatch('auth/singInUser', user)
-    console.log(resp);
+    const resp = await store.dispatch('auth/singInUser', user)
+    return resp
   }
   
   const checkAuthStatus = async() => {
@@ -21,7 +21,6 @@ const useAuth = () => {
 
   const logout = () => {
     store.commit('auth/logout')
-    store.commit('journal/clearEntries')
   }
 
   return {

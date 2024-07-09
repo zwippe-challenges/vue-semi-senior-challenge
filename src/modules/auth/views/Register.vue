@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import useAuth from '../composables/useAuth';
 import { useRouter } from 'vue-router'
 
-const store = useStore()
+const { createUser } = useAuth()
 const router = useRouter()
 const errors = ref(null)
 
@@ -13,13 +13,14 @@ const user = ref({
   password: ''
 })
 
-const register = async () => {
+const register = async () => {;
   
-  try {
-    await store.dispatch('register', { user })
-    router.push('/tasks')
-  } catch (error) {
-    errors.value = error.message
+  const { ok, message } = await createUser(user.value)
+
+  if (ok){
+    router.push({name: 'tasks'})
+  } else {
+    errors.value = message
   }
 }
 

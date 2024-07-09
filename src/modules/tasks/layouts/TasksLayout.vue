@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import { useStore } from 'vuex'
+import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
 
-const store = useStore()
+const { username, logout } = useAuth()
 const router = useRouter()
 
 const logOut = async () => {
-  console.log("Cerrar Session");
-  
-  await store.dispatch('logout')
-  router.push('/')
-}
+  logout()
+  router.push({name: 'user'})
+} 
 
 </script>
 <template>
@@ -69,6 +67,7 @@ const logOut = async () => {
               <span class="absolute -inset-1.5"></span>
               <span class="sr-only">Open user menu</span>
               <img class="h-8 w-8 rounded-full" src="https://img.icons8.com/?size=100&id=fmOzBzMvUPQR&format=png&color=000000" alt="salir">
+              {{ username }}
             </button>
             <div id="tooltip-default" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                 Cerrar Session

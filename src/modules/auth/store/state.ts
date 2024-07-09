@@ -1,6 +1,6 @@
-state: {
-  user: {
-    loggedIn: false,
-    data: null
-  }
-}
+export default () => ({
+  status: 'authenticating',
+  user: null,
+  idToken: null,
+  refreshToken: null
+})

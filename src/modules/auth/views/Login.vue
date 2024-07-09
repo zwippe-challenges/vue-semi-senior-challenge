@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import useAuth from '../composables/useAuth';
 import { useRouter } from 'vue-router'
 
-const store = useStore()
+const { loginUser } = useAuth()
 const router = useRouter()
 const errors = ref(null)
 
@@ -13,16 +13,13 @@ const user = ref({
 })
 
 const login = async () => {
-  console.log({user});
-  console.log(user);
-  
-  
-  try {
-    await store.dispatch('login', user)
-    router.push('/tasks')
-  }
-  catch (error){
-    errors.value = error.message
+
+  const { ok, message } = await loginUser(user.value)
+
+  if (ok){
+    router.push({name: 'tasks'})
+  } else {
+    errors.value = message
   }
 }
 
