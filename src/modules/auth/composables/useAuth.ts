@@ -30,8 +30,8 @@ const useAuth = () => {
     logout,
 
     authStatus: computed(() => store.getters['auth/currentState']),
-    username: computed(() => store.getters['auth/username'])
-
+    username: computed(() => store.getters['auth/username']),
+    userId: computed(() => store.getters['auth/userId'])
   }
 }
 

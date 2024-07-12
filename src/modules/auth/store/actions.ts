@@ -8,9 +8,10 @@ export const createUser = async ({ commit }, user ) => {
   try {
     const { _tokenResponse } = await createUserWithEmailAndPassword(auth, email, password)
 
-    const { idToken, refreshToken } = _tokenResponse
+    const { idToken, refreshToken, localId } = _tokenResponse
     
-    delete user.password    
+    delete user.password
+    user.id = localId
 
     commit('loginUser',{user, idToken, refreshToken})
 
@@ -28,9 +29,10 @@ export const singInUser = async ({ commit }, user ) => {
   try {
     const { _tokenResponse } = await signInWithEmailAndPassword(auth, email, password)
 
-    const { displayName, idToken, refreshToken } = _tokenResponse
-
+    const { displayName, idToken, refreshToken, localId } = _tokenResponse
+    
     user.name = displayName
+    user.id = localId
     
     commit('loginUser',{user, idToken, refreshToken})
 
@@ -52,17 +54,24 @@ export const checkAuthentication = async ({ commit }) => {
   }
 
   try {
-    const { data } = await authApi.post(':lookup', { idToken })
-    const { displayName, email } = data.users[0]
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { displayName, email } = user
 
-    const user = {
-      name: displayName,
-      email
-    }
+        const _user = {
+          name: displayName,
+          email
+        }
 
-    commit('loginUser', { user, idToken, refreshToken})
+        commit('loginUser', { _user, idToken, refreshToken})
 
-    return {ok: true}
+        return {ok: true}
+      } else {
+        return { ok: false, message: 'Session expired.'}
+      }
+    });
+
+    
 
   } catch (error) {
     commit('logout')

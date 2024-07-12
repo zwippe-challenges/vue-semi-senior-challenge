@@ -9,14 +9,12 @@ export const loginUser = (state, {user, idToken, refreshToken}) => {
     localStorage.setItem('refreshToken', refreshToken)
     state.refreshToken = refreshToken
   }
-
+  
   state.user = user
   state.status = 'authenticated'
 }
 
 export const logout = (state) => {
-  console.log('logout........');
-  
   state.user = null
   state.idToken = null
   state.refreshToken = null

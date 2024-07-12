@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TaskNew from "@/modules/tasks/components/TaskNew.vue";
 import TaskItem from "@/modules/tasks/components/TaskItem.vue"
+
 </script>
 
 <template>
